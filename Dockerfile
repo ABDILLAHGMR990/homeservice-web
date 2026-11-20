@@ -18,10 +18,11 @@ RUN apt-get update && apt-get install -y \
 
 # Configure Apache DocumentRoot to Laravel's /public directory
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
+RUN printf '<VirtualHost *:*>\n    ServerAdmin webmaster@localhost\n    DocumentRoot /var/www/html/public\n    <Directory /var/www/html/public>\n        Options Indexes FollowSymLinks\n        AllowOverride All\n        Require all granted\n    </Directory>\n    ErrorLog ${APACHE_LOG_DIR}/error.log\n    CustomLog ${APACHE_LOG_DIR}/access.log combined\n</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf \
     && sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf \
     && printf '<Directory /var/www/html/public>\n    Options Indexes FollowSymLinks\n    AllowOverride All\n    Require all granted\n</Directory>\nServerName localhost\n' > /etc/apache2/conf-available/laravel.conf \
-    && a2enconf laravel
+    && a2enconf laravel \
+    && a2ensite 000-default
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -40,7 +41,9 @@ RUN mkdir -p storage/framework/sessions storage/framework/views storage/framewor
     && php artisan package:discover --ansi || true \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache \
-    && chmod +x /var/www/html/docker/entrypoint.sh
+    && sed -i 's/\r$//' /var/www/html/docker/entrypoint.sh \
+    && chmod +x /var/www/html/docker/entrypoint.sh \
+    && apache2ctl -t
 
 # Safe defaults (can be overridden anytime in Railway Variables)
 ENV APP_NAME=HomeService \

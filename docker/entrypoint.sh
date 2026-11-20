@@ -73,12 +73,31 @@ echo "Configuring Apache to listen on ports 80, 8080, and $PORT..."
     fi
 } > /etc/apache2/ports.conf
 
-sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:*/" /etc/apache2/sites-available/000-default.conf
+cat <<'EOF' > /etc/apache2/sites-available/000-default.conf
+<VirtualHost *:*>
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/html/public
+
+    <Directory /var/www/html/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+EOF
+
+a2ensite 000-default >/dev/null 2>&1 || true
 
 # Ensure ONLY mpm_prefork is loaded for mod_php (fixes AH00534: More than one MPM loaded)
 a2dismod mpm_event mpm_worker >/dev/null 2>&1 || true
 rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* || true
 a2enmod mpm_prefork >/dev/null 2>&1 || true
+
+echo "Validating Apache configuration..."
+apache2ctl -t
 
 echo "Starting Apache web server for HomeService..."
 exec apache2-foreground
