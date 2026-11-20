@@ -52,4 +52,4 @@ ENV APP_NAME=HomeService \
 
 EXPOSE 8080
 
-ENTRYPOINT ["/var/www/html/docker/entrypoint.sh"]
+CMD ["/var/www/html/docker/entrypoint.sh"]
