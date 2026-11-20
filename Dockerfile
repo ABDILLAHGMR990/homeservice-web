@@ -49,6 +49,7 @@ RUN mkdir -p storage/framework/sessions storage/framework/views storage/framewor
 ENV APP_NAME=HomeService \
     APP_ENV=production \
     APP_DEBUG=false \
+    APP_URL=https://home-service.up.railway.app \
     APP_KEY=base64:UdR3Z5NkETpK+h4R8KG9uDnPL9k191QudI913o5LhYg= \
     LOG_CHANNEL=stderr \
     SESSION_DRIVER=file \
