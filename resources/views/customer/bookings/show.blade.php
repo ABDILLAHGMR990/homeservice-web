@@ -145,7 +145,7 @@
     <div class="hs-card" style="margin-bottom: 24px;">
       <h3 style="font-size: 1.1rem; margin-bottom: 14px;">Teknisi yang Bertugas</h3>
       <div style="display: flex; gap: 14px; align-items: center; margin-bottom: 16px;">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop" alt="Budi Santoso" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop" alt="Budi Santoso" style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;">
         <div>
           <h4 style="font-size: 1rem; color: var(--hs-primary); margin-bottom: 2px;">
             Budi Santoso <i class="bi bi-patch-check-fill" style="color: #16A36A; font-size: 0.9rem;"></i>

@@ -17,6 +17,8 @@ class Service extends Model
         'base_price',
         'price_unit',
         'duration_estimate',
+        'estimated_duration_minutes',
+        'image',
         'image_path',
         'is_active',
         'sort_order',

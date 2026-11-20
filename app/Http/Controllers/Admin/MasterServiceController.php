@@ -29,8 +29,9 @@ class MasterServiceController extends Controller
             'is_active'         => 'boolean',
         ]);
 
-        $data['slug']      = Str::slug($data['name']) . '-' . Str::random(4);
-        $data['is_active'] = $request->boolean('is_active', true);
+        $data['slug']                       = Str::slug($data['name']) . '-' . Str::random(4);
+        $data['is_active']                  = $request->boolean('is_active', true);
+        $data['estimated_duration_minutes'] = $data['duration_estimate'] ?? 60;
 
         Service::create($data);
 
@@ -49,7 +50,8 @@ class MasterServiceController extends Controller
             'is_active'         => 'boolean',
         ]);
 
-        $data['is_active'] = $request->boolean('is_active');
+        $data['is_active']                  = $request->boolean('is_active');
+        $data['estimated_duration_minutes'] = $data['duration_estimate'] ?? $service->estimated_duration_minutes ?? 60;
         $service->update($data);
 
         return back()->with('success', 'Layanan berhasil diperbarui.');

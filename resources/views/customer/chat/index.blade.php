@@ -20,7 +20,7 @@
     <div style="overflow-y: auto; flex-grow: 1;">
       <!-- Active Conversation Item -->
       <div style="padding: 16px; background: #FFF; border-left: 3px solid var(--hs-primary); border-bottom: 1px solid var(--hs-border); cursor: pointer; display: flex; gap: 12px; align-items: center;">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" alt="Budi Santoso" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=120&auto=format&fit=crop" alt="Budi Santoso" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover;">
         <div style="flex-grow: 1; overflow: hidden;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
             <div style="font-weight: 700; font-size: 0.875rem; color: var(--hs-primary);">Budi Santoso</div>
@@ -39,7 +39,7 @@
     <!-- Chat Header -->
     <div style="padding: 14px 20px; border-bottom: 1px solid var(--hs-border); display: flex; justify-content: space-between; align-items: center; background: #FFF;">
       <div style="display: flex; align-items: center; gap: 12px;">
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=120&auto=format&fit=crop" alt="Budi Santoso" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=120&auto=format&fit=crop" alt="Budi Santoso" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
         <div>
           <div style="font-weight: 700; font-size: 0.9375rem; color: var(--hs-primary);">Budi Santoso (Teknisi AC)</div>
           <div style="font-size: 0.75rem; color: #16A36A;"><i class="bi bi-circle-fill" style="font-size: 0.5rem;"></i> Sedang Aktif • Order #HS-2026-001</div>
