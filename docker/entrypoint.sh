@@ -75,5 +75,10 @@ echo "Configuring Apache to listen on ports 80, 8080, and $PORT..."
 
 sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:*/" /etc/apache2/sites-available/000-default.conf
 
+# Ensure ONLY mpm_prefork is loaded for mod_php (fixes AH00534: More than one MPM loaded)
+a2dismod mpm_event mpm_worker >/dev/null 2>&1 || true
+rm -f /etc/apache2/mods-enabled/mpm_event.* /etc/apache2/mods-enabled/mpm_worker.* || true
+a2enmod mpm_prefork >/dev/null 2>&1 || true
+
 echo "Starting Apache web server for HomeService..."
 exec apache2-foreground
