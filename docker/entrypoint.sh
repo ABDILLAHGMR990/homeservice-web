@@ -1,7 +1,8 @@
 #!/bin/bash
-set -e
 
 cd /var/www/html
+
+echo "=== HomeService Container Starting ==="
 
 # Ensure .env file exists so Laravel dotenv & artisan never complain
 if [ ! -f .env ] && [ -f .env.example ]; then
@@ -59,11 +60,20 @@ fi
 chown -R www-data:www-data storage bootstrap/cache
 chmod -R 775 storage bootstrap/cache
 
-# Configure Apache to listen on Cloud assigned $PORT (default 8080)
+# Listen on 80, 8080, AND Cloud assigned $PORT so Railway target port always matches
 PORT="${PORT:-8080}"
-echo "Configuring Apache to listen on port $PORT..."
-sed -ri "s/^Listen [0-9]+/Listen ${PORT}/" /etc/apache2/ports.conf
-sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf
+echo "Configuring Apache to listen on ports 80, 8080, and $PORT..."
+{
+    echo "Listen 80"
+    if [ "$PORT" != "80" ]; then
+        echo "Listen 8080"
+        if [ "$PORT" != "8080" ]; then
+            echo "Listen $PORT"
+        fi
+    fi
+} > /etc/apache2/ports.conf
 
-echo "Starting Apache web server for HomeService on port $PORT..."
+sed -ri "s/<VirtualHost \*:[0-9]+>/<VirtualHost *:*/" /etc/apache2/sites-available/000-default.conf
+
+echo "Starting Apache web server for HomeService..."
 exec apache2-foreground
